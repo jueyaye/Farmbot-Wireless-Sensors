@@ -1,0 +1,151 @@
+<div class="container">
+  <h1 class="form-signin-heading">Your profile</h1>
+  <br>
+  <div class="row">
+     <div class="col-md-4">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-6 control-label">Full name</label>
+          <p class="form-control-static">{{ details?.name }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-6 control-label">Email</label>
+          <p class="form-control-static">{{ details?.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-6 control-label">id</label>
+          <p class="form-control-static">{{ details?._id }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card-group">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ forecastSummary[0].summary }}</h5>
+            <p class="card-text">Percipitation Probability: {{ forecastSummary[0].percipProb }}%</p>
+            <p class="card-text">Humidity: {{ forecastSummary[0].humidity }}%</p>
+            <p class="card-text"><small class="text-muted">{{ schedule[0] }}</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+           <h5 class="card-title">{{ forecastSummary[1].summary }}</h5>
+            <p class="card-text">Percipitation Probability: {{ forecastSummary[1].percipProb }}%</p>
+            <p class="card-text">Humidity: {{ forecastSummary[1].humidity }}%</p>
+            <p class="card-text"><small class="text-muted">{{ schedule[1] }}</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ forecastSummary[2].summary }}</h5>
+            <p class="card-text">Percipitation Probability: {{ forecastSummary[2].percipProb }}%</p>
+            <p class="card-text">Humidity: {{ forecastSummary[2].humidity }}%</p>
+            <p class="card-text"><small class="text-muted">{{ schedule[2] }}</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ forecastSummary[3].summary }}</h5>
+            <p class="card-text">Percipitation Probability: {{ forecastSummary[3].percipProb }}%</p>
+            <p class="card-text">Humidity: {{ forecastSummary[3].humidity }}%</p>
+            <p class="card-text"><small class="text-muted">{{ schedule[3] }}</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ forecastSummary[4].summary }}</h5>
+            <p class="card-text">Percipitation Probability: {{ forecastSummary[4].percipProb }}%</p>
+            <p class="card-text">Humidity: {{ forecastSummary[4].humidity }}%</p>
+            <p class="card-text"><small class="text-muted">{{ schedule[4] }}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Application</h5>
+          <p class="card-text">
+            {{ application }}
+          </p>
+          <h5 class="card-title">Network Status</h5>
+          <p class="card-text">
+            {{ onlineOffline }}
+          </p>
+          <p class="card-text"><small class="text-muted">{{ syncTimestamp }}</small></p>
+        </div>
+      </div>  
+    </div>
+  </div>
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Devices</h5>
+          <a class="card-text" routerLink="/add-device">Add Device</a>
+          <br>
+
+          <tr *ngFor="let device of devices">
+            <td>
+              <div class="container">
+                <h5 class="card-title">
+                  {{ device.title }}
+                </h5>
+                <small class="text-muted" *ngFor="let item of device.location | keyvalue">
+                  {{ item.key }}: {{ item.value }}
+                </small>
+                <p class="card-text">
+                  {{ device.description }}
+                </p>
+              </div>
+              <br>
+            </td>
+          </tr>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Alerts</h5>
+          <tr *ngFor="let alert of alerts">
+            <td>
+              <div class="container">
+                <h5 class="card-title">
+                  {{ alert.title }}
+                </h5>
+                <p class="card-text">
+                  {{ alert.description }}
+                </p>
+              </div>
+              <br>
+            </td>
+          </tr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
