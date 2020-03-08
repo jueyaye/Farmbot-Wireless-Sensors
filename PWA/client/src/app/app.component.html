@@ -1,0 +1,55 @@
+
+<mat-toolbar>
+  <button mat-button (click)="sidenav.toggle()"><fa name="bars"></fa></button>&nbsp;
+  <span>UQFarmBot - Agriculture Sensor Network</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="side-container">
+  <mat-sidenav #sidenav mode="side">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Account
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-list>
+       <mat-list-item *ngIf="!auth.isLoggedIn()"><a routerLink="/login">Sign in</a></mat-list-item>
+       <mat-list-item *ngIf="auth.isLoggedIn()"><a routerLink="/profile">{{ auth.getUserDetails()?.name }}</a></mat-list-item>
+       <mat-list-item *ngIf="auth.isLoggedIn()"><a (click)="auth.logout()">Logout</a></mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="auth.isLoggedIn()">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Devices
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <tr *ngFor="let device of devices">
+        <td>
+          <div class="container">
+            <a routerLink="/view-device/{{ device.title }}">{{ device.title }}</a>
+          </div> 
+          <br> 
+        </td>
+      </tr>
+      <div class="container">
+        <a routerLink="/add-device">Add Device</a>
+      </div>
+      
+    </mat-expansion-panel>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-toolbar>
+  <!-- footer -->
+</mat-toolbar>

@@ -1,0 +1,68 @@
+<div class="container">
+	<div class="card">
+		<h3 class="card-title col-md-4">
+			Add a new device
+		</h3>
+	  <div class="card-body">
+	    <form [formGroup]="angForm" novalidate>
+	    	<h4 class="col-md-4">Device Details</h4>
+	      <br>
+	      <div class="form-group">
+	        <label class="col-md-4">Device Title</label>
+	        <input type="text" class="form-control" formControlName="title" #title/>
+	      </div>
+	      <div *ngIf="angForm.controls['title'].invalid && (angForm.controls['title'].dirty || angForm.controls['title'].touched)" class="alert alert-danger">
+	        <div *ngIf="angForm.controls['title'].errors.required">
+	          Device Title is required.
+	        </div>
+	      </div>
+	      <div class="form-group">
+	        <label class="col-md-4">Device BDA</label>
+	        <input type="text" class="form-control" formControlName="bda" #bda/>
+	      </div>
+	      <div *ngIf="angForm.controls['bda'].invalid && (angForm.controls['bda'].dirty || angForm.controls['bda'].touched)" class="alert alert-danger">
+	        <div *ngIf="angForm.controls['bda'].errors.required">
+	          Device BDA is required.
+	        </div>
+	      </div>
+	      <div class="form-group">
+	        <label class="col-md-4">Device Description</label>
+	        <input type="text" class="form-control" formControlName="description" #description/>
+	      </div>
+	      <div *ngIf="angForm.controls['description'].invalid && (angForm.controls['description'].dirty || angForm.controls['description'].touched)" class="alert alert-danger">
+	        <div *ngIf="angForm.controls['description'].errors.required">
+	          Device Description is required.
+	        </div>
+	      </div>
+	      <br>
+	      <br>
+
+	      <h4 class="col-md-4">Device Location</h4>
+	      <br>
+	      <div class="form-group">
+	        <label class="col-md-4">Latitude</label>
+	        <input type="text" class="form-control" formControlName="lat" #lat />
+	      </div>
+	      <div *ngIf="angForm.controls['lat'].invalid && (angForm.controls['lat'].dirty || angForm.controls['lat'].touched)" class="alert alert-danger">
+	        <div *ngIf="angForm.controls['lat'].errors.required">
+	          Device Latitude is required.
+	        </div>
+	      </div>
+	      <div class="form-group">
+	        <label class="col-md-4">Longitude</label>
+	        <input type="text" class="form-control" formControlName="lng" #lng />
+	      </div>
+	      <div *ngIf="angForm.controls['lng'].invalid && (angForm.controls['lng'].dirty || angForm.controls['lng'].touched)" class="alert alert-danger">
+	        <div *ngIf="angForm.controls['lng'].errors.required">
+	          Device Longitude is required.
+	        </div>
+	      </div>
+	      <div class="form-group">
+	        <button (click)="addDevice(title.value, bda.value, description.value, lat.value, lng.value)"
+	        [disabled]="angForm.pristine || angForm.invalid" 
+	        class="btn btn-primary">Add Device</button>
+	      </div>
+	    </form>
+	  </div>
+	</div>
+</div>

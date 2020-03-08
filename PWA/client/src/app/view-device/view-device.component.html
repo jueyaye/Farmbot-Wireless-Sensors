@@ -1,0 +1,169 @@
+<div class="container">
+  <br>
+  <h1 class="form-signin-heading">{{ deviceName }}</h1>
+  <br>
+
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Device Overview</h5>
+          <p class="card-text">Device Battery: {{ deviceBattery }}%</p>
+          <p class="card-text"><small class="text-muted">Location: {{ deviceLocation }}</small></p>
+          <br>
+          <p class="card-text">Device Description: {{ deviceDescription }}</p>
+          <p class="card-text">Device BDA: {{ deviceBDA }}</p>
+        </div>
+      </div>
+      <br>
+      
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Node Overview</h5>
+          <p class="card-text">LORA node: {{ loraNode }}</p>
+          <p class="card-text">Node Battery: {{ nodeBattery }}%</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Plant Status</h5>
+          <p class="card-text">Observed condition: &nbsp; {{ winner }}</p>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="card-text">Temperature: &nbsp; {{ state.temp }}</p>
+            </div>
+            <div class="col-md-6">
+              <p class="card-text">Lux: &nbsp; {{ state.lux }}</p>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="card-text">Moisture: &nbsp; {{ state.moist }}</p>
+            </div>
+            <div class="col-md-6">
+              <p class="card-text">Conductivity: &nbsp; {{ state.cond }}</p>
+            </div>
+          </div>
+          <br>
+          <p class="card-text"><small class="text-muted">Last updated: {{ timestamp }}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+
+  <form [formGroup]="angForm" novalidate>
+  	<h4 class="col-md-4">Filter Device Data</h4>
+    <br>
+    <div class="row">
+  		<div class="col-md-4">
+  			<div class="form-group">
+		      <mat-form-field>
+					  <input matInput [matDatepicker]="fromPicker" placeholder="Filter From:" formControlName="timestampFrom" #timestampFrom>
+					  <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+					  <mat-datepicker #fromPicker></mat-datepicker>
+					</mat-form-field>
+		    </div>
+		    <div *ngIf="angForm.controls['timestampFrom'].invalid && (angForm.controls['timestampFrom'].dirty || angForm.controls['timestampFrom'].touched)" class="alert alert-danger">
+		      <div *ngIf="angForm.controls['timestampFrom'].errors.required">
+		        Timestamp from is required.
+		      </div>
+		    </div>
+  		</div>
+  		<div class="col-md-4">
+  			<div class="form-group">
+		      <mat-form-field>
+					  <input matInput [matDatepicker]="tillPicker" placeholder="Filter to:" formControlName="timestampTill" #timestampTill>
+					  <mat-datepicker-toggle matSuffix [for]="tillPicker"></mat-datepicker-toggle>
+					  <mat-datepicker #tillPicker></mat-datepicker>
+					</mat-form-field>
+		    </div>
+		    <div *ngIf="angForm.controls['timestampTill'].invalid && (angForm.controls['timestampTill'].dirty || angForm.controls['timestampTill'].touched)" class="alert alert-danger">
+		      <div *ngIf="angForm.controls['timestampTill'].errors.required">
+		        Timestamp till is required.
+		      </div>
+		    </div>
+  		</div>
+  	</div>
+    <div class="form-group">
+      <button (click)="filterForTimestamp(timestampFrom.value, timestampTill.value)"
+      [disabled]="angForm.pristine || angForm.invalid" 
+      class="btn btn-primary">Filter</button>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="flex">
+        <div class="flex-item">
+          <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+            [datasets]="lineChartTempData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="flex">
+        <div class="flex-item">
+          <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+            [datasets]="lineChartLuxData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="flex">
+        <div class="flex-item">
+          <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+            [datasets]="lineChartMoistData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="flex">
+        <div class="flex-item">
+          <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+            [datasets]="lineChartCondData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins"></canvas>
+          </div>
+        </div>
+      </div>
+  	</div>
+  </div>
+  <br>
+  <br>
+</div>
